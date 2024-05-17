@@ -13,7 +13,8 @@ def pega_temp(cidade):
         if "main" in data and "weather" in data:
             temperatura = data['main']['temp']
             humidade = data['main']['humidity']
-            ret =  f"\nCidade: {cidade}\nTemperatura: {temperatura}°C\nHumidade: {humidade}%.\n"
+
+            ret =  f"\nCidade: {cidade}\nTemperatura: {temperatura-273:.2g}°C\nHumidade: {humidade}%.\n"
             print(ret)
         else:
             return "Não foi possível obter informações sobre o clima."
