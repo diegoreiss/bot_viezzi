@@ -6,7 +6,7 @@ import string
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 
-from services.api import pega_temp
+from api import pega_temp
 
 bot = ChatBot('Bot')
 chatbot = ChatBot(
@@ -23,8 +23,6 @@ trainer.train([
     'ola, Seja bem vindo, me chamo Bot Viezzi, voce gostaria de saber alguma informação sobre o clima? ',
     'obrigado',
     'fico feliz em ajudar, gostaria de mais alguma informação sobre o clima?',
-
-
 ])
 def preprocess_text_pt(text):
     tokens = word_tokenize(text.lower(), language='portuguese')
