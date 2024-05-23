@@ -26,28 +26,27 @@ def viezzi_init():
         'obrigado',
         'fico feliz em ajudar, gostaria de mais alguma informação sobre o clima?',
     ])
-    while True:
-        request = input('you: ')
-        if request.lower() in ['sim', 'claro', 'gostaria', "clima"]:
-            print('ok')
-            request = input("informe a cidade que gostaria de saber o clima: ")
-            temp = pega_temp(request)
-            print(temp)
-            print("Viezzi: gostaria de mais alguma informação sobre o clima?")
+    request = input('you: ')
+    if request.lower() in ['sim', 'claro', 'gostaria', "clima"]:
+        print('ok')
+        request = input("informe a cidade que gostaria de saber o clima: ")
+        temp = pega_temp(request)
+        print(temp)
+        print("Viezzi: gostaria de mais alguma informação sobre o clima?")
 
 
-        elif request.lower() in ['nao', 'não', 'sair']:
+    elif request.lower() in ['nao', 'não', 'sair']:
 
-            print('ok, tchau')
+        print('ok, tchau')
 
-            break
-        elif request.lower() in ['porra', 'caralho', 'puta']:
+        break
+    elif request.lower() in ['porra', 'caralho', 'puta']:
 
-            print('Viezzi: não posso fornecer esse tipo de informação, mas você pode me fazer perguntas sobre o clima')
-            print("Viezzi: gostaria de alguma informação sobre o clima?")
+        print('Viezzi: não posso fornecer esse tipo de informação, mas você pode me fazer perguntas sobre o clima')
+        print("Viezzi: gostaria de alguma informação sobre o clima?")
 
-        else:
-            response = bot.get_response(request)
-            print('Viezzi: ', response)
+    else:
+        response = bot.get_response(request)
+        print('Viezzi: ', response)
 
 viezzi_init()
