@@ -4,5 +4,5 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.dialog_index, name='dialog_index')
+    path('', views.DialogView.as_view(), name='dialog_view'),
 ]

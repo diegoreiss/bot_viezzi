@@ -12,21 +12,36 @@
 </head>
 
 <body>
-  <div class="container my-5">
-    <div class="chat-container">
-      <div class="chat-box-list border rounded p-3 mb-3">
-        <ul class="list-unstyled">
-          <li class="text-start w-50">
-            <span class="bg-primary p-2 rounded text-white">Bot message</span>
-          </li>
-          <li class="text-end">
-            <span class="bg-secondary p-2 rounded text-white">User message</span>
-          </li>
-        </ul>
-      </div>
-      <button type="button" class="btn btn-info">Enviar Mensagem</button>
+  <main>
+    <div class="container my-5">
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="chat-container">
+          <div class="chat-box-list border rounded p-3 mb-3">
+            <ul class="list-unstyled">
+              {% block messages_list %}
+                {% for message in messages %}
+                  {% if message.type == 1 %}
+                    <li class="text-end">
+                      <span class="bg-secondary p-2 rounded text-white">{{ message.message }}</span>
+                    </li>
+                  {% elif message.type == 2 %}
+                    <li class="text-start w-50">
+                      <span class="bg-primary p-2 rounded text-white">{{ message.message }}</span>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              {% endblock %}
+            </ul>
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" name="mensagem" id="inputMensagem" placeholder="Envie uma mensagem">
+          </div>
+          <button type="submit" class="btn btn-info">Enviar Mensagem</button>
+        </div>
+      </form>
     </div>
-  </div>
+  </main>
   <script src="{% static 'dialog/script.js' %}"></script>
   {% include 'includes/scripts.html' %}
 </body>
