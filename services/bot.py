@@ -6,10 +6,13 @@ import string
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 
-from utlls import pega_temp
+from . import utils
 
 
-def viezzi_init():
+def viezzi_init(request, esperando_clima):
+    if not request:
+        return
+    
     bot = ChatBot('Bot')
     ChatBot(
         'Viezzi',
@@ -19,34 +22,27 @@ def viezzi_init():
     )
 
     trainer = ListTrainer(bot)
+    utils.json_train_bot(trainer)
 
-    trainer.train([
-        'oi',
-        'ola, Seja bem vindo, me chamo Bot Viezzi, voce gostaria de saber alguma informação sobre o clima? ',
-        'obrigado',
-        'fico feliz em ajudar, gostaria de mais alguma informação sobre o clima?',
-    ])
-    request = input('you: ')
+    print(esperando_clima)
     if request.lower() in ['sim', 'claro', 'gostaria', "clima"]:
-        print('ok')
-        request = input("informe a cidade que gostaria de saber o clima: ")
-        temp = pega_temp(request)
-        print(temp)
-        print("Viezzi: gostaria de mais alguma informação sobre o clima?")
-
-
+        esperando_clima = True
+        return "Informe a cidade que gostaria de saber o clima!!"
+    elif esperando_clima:
+        print('esperando clima')
+        response = utils.pega_temp(request)
+        esperando_clima = False
+        return [response, "gostaria de mais alguma informação sobre o clima?"]
     elif request.lower() in ['nao', 'não', 'sair']:
-
-        print('ok, tchau')
-
-        break
+        utils.export_json(bot)
+        return "Ok, adeus"
     elif request.lower() in ['porra', 'caralho', 'puta']:
-
-        print('Viezzi: não posso fornecer esse tipo de informação, mas você pode me fazer perguntas sobre o clima')
-        print("Viezzi: gostaria de alguma informação sobre o clima?")
-
+        respostas = [
+            "não posso fornecer esse tipo de informação, mas você pode me fazer perguntas sobre o clima",
+            "gostaria de alguma informação sobre o clima?",
+        ]
+        return respostas
     else:
         response = bot.get_response(request)
-        print('Viezzi: ', response)
 
-viezzi_init()
+        return response

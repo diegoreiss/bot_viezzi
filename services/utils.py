@@ -1,5 +1,11 @@
-import requests
 import json
+
+import requests
+from django.conf import settings
+
+def me():
+    print(settings.BASE_DIR)
+    print(load_json())
 
 def pega_temp(cidade):
     api_key = "ccbff3a178263fe7bd130a13f0e90b8d"
@@ -21,7 +27,7 @@ def pega_temp(cidade):
         return "Erro ao consultar a API de previsão do tempo."
 
 def load_json():
-    with open ('treinamento.json', 'r', encoding = 'utf-8') as file:
+    with open (settings.BASE_DIR / 'treinamento.json', 'r', encoding = 'utf-8') as file:
         conversations = json.load(file)
     return conversations
 
@@ -29,13 +35,9 @@ def json_train_bot(trainer):
     conversations = load_json()
     trainer.train(conversations)
 
-def export_json(bot, filename):
-    conversa = []
+def export_json(bot, filename='aprendizado.json'):
+    conversa = [{'text': msg.text} for msg in bot.storage.filter()]
 
-    for msg in bot.storage.filter():
-        conversa.append({
-            'text': msg.text
-        })
     with open(filename, 'w') as json_file:
         json.dump(conversa, json_file, indent=4)
 
