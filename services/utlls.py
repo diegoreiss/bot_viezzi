@@ -1,6 +1,5 @@
 import requests
 
-
 def pega_temp(cidade):
     api_key = "ccbff3a178263fe7bd130a13f0e90b8d"
 
@@ -20,3 +19,5 @@ def pega_temp(cidade):
             return "Não foi possível obter informações sobre o clima."
     else:
         return "Erro ao consultar a API de previsão do tempo."
+
+
