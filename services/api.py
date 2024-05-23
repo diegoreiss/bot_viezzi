@@ -20,5 +20,3 @@ def pega_temp(cidade):
             return "Não foi possível obter informações sobre o clima."
     else:
         return "Erro ao consultar a API de previsão do tempo."
-
-
